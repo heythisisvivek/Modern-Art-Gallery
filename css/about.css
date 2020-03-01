@@ -1,0 +1,14 @@
+.aboutImage {
+    text-align: center;
+}
+
+.aboutImageFile {
+    border: 5px solid rgb(46, 121, 184);
+    border-radius: 100%;    
+    transition: box-shadow 0.4s;
+}
+
+.aboutImageFile:hover {
+    cursor: pointer;
+    box-shadow: 5px 5px 50px rgb(46, 121, 184);
+}

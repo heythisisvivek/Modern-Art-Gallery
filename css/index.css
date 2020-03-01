@@ -1,0 +1,28 @@
+body {
+    overflow-x: hidden;
+}
+
+.thumbnail {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    transition: box-shadow 0.4s;
+}
+
+.thumbnail a:hover {
+    text-decoration: none;
+}
+
+.thumbnail a img {
+    height: 250px;
+    object-fit: cover;
+}
+
+.thumbnail:hover {
+    box-shadow: 10px 10px 50px grey;
+}
+
+.socialLinks {
+    display: inline;
+}

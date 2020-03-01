@@ -1,0 +1,51 @@
+body {
+    overflow-x: hidden;
+}
+
+.right-nav {
+    height: 100%;
+    color: #FFF;
+    background-image: radial-gradient(#343a40, #343b40, #26272b);    
+}
+
+.right-nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.right-nav ul li {
+    padding: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid blanchedalmond;
+}
+
+.right-nav ul li a {
+    color: #FFF;
+}
+
+.right-nav ul li:hover {
+    background-image: radial-gradient(#343a40, #495055, #26272b);    
+}
+
+#imageFile {
+    display: none;
+}
+
+.pp-preview {
+    border-radius: 100%;
+    border: 5px solid #000;
+    transition: box-shadow 0.4s;
+}
+
+.pp-preview:hover {
+    cursor: pointer;
+    box-shadow: 5px 5px 50px #343a40;
+}
+
+@media screen and (min-width: 800px) {
+    #imageFileLabel {
+        float: right;
+    }
+}
