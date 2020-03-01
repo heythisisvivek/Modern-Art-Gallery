@@ -14,7 +14,7 @@ Screenshots
 ----
 Home Screen
 
-![Screenshot](Pictures/Art Gallery.png)
+![Screenshot](Pictures/ArtGallery.png)
 
 Dashboard
 
