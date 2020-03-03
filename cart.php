@@ -152,13 +152,14 @@ if(!isset($_SESSION['email'])) {
                     $uid = $retrieveCart['uid'];
                     $iid = $retrieveCart['iid'];
                     $email = $retrieveCart['email'];
-                    $insertCarttoPurchased = "INSERT INTO purchased (uid, iid, email) VALUES ('$uid', '$iid', '$email')";
+                    $date = date('d/m/y', time());
+                    $insertCarttoPurchased = "INSERT INTO purchased (uid, iid, email, date) VALUES ('$uid', '$iid', '$email', '$date')";
                     if(!mysqli_query($conn, $insertCarttoPurchased)) {
                         echo "<script>alert('Something Went Wrong')</script>";
                     }
                     $removeIt = "DELETE FROM cart WHERE uid='$uid'";
                     if(mysqli_query($conn, $removeIt)) {
-                        echo "<script>alert('Removed from Cart.')</script>";
+                        // echo "<script>alert('Removed from Cart.')</script>";
                     } else {
                         echo "<script>alert('Something Went Wrong.')</script>";
                     }

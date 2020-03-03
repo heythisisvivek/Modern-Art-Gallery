@@ -1,22 +1,43 @@
 <?php 
 require("includes/database.php");
 session_start();
-if(!isset($_SESSION['email'])) {
-    header("location: index.php");
-} else {
-  $localEmail = $_SESSION['email'];
+?>
+<?php
+if(isset($_REQUEST["submit"])) {
+  function inValidate($data) {
+    $data = trim(stripslashes(htmlspecialchars($data)));
+    return $data;
+  }
+
+  $email = inValidate($_REQUEST["email"]);
+  $password = inValidate($_REQUEST["password"]);
+
+  $select = "SELECT * FROM admin WHERE email = '$email'";
+  $query = mysqli_query($conn, $select);
+
+  if(mysqli_num_rows($query) > 0) {
+    $req = mysqli_fetch_assoc($query);
+    $getPasswd = $req['password'];
+    if(password_verify($password, $getPasswd)) {
+      $_SESSION['adminLogin'] = $email;
+      $_SESSION['password'] = $getPasswd;
+      header("location: admin.php");
+    } else {
+      echo "<script>alert('User not Found')</script>";  
+    }
+  } else {
+    echo "<script>alert('User not Found')</script>";
+  }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+    <title>Admin Login</title>
     <link rel="stylesheet" href="css/basic.css" type="text/css" />
-    <link rel="stylesheet" href="css/home.css" type="text/css" />
-    <link rel="stylesheet" href="css/about.css" type="text/css" />
+    <link rel="stylesheet" href="css/signin.css" type="text/css" />
     <link rel="stylesheet" href="CDN/css/bootstrap.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">    
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -47,43 +68,26 @@ if(!isset($_SESSION['email'])) {
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="logout.php">Sign Out</a>
+            <a class="nav-link" href="signup.php">Sign Up</a>
           </li>
         </ul>
       </div>
     </nav>
     </div>
 
-    <!-- Content -->
-     
-     <div class="row">
-     <div class="col-md-2">
-     <div class="right-nav">
-     <ul>
-        <li><a href="http://localhost/Art%20Gallery/home.php">Dashboard</a></li>
-        <li><a href="http://localhost/Art%20Gallery/account.php">Account</a></li>
-        <li><a href="http://localhost/Art%20Gallery/testSeller.php">Seller</a></li>
-        <li><a href="http://localhost/Art%20Gallery/history.php">History</a></li>
-        <li><a href="http://localhost/Art%20Gallery/about.php">About</a></li>
-     </ul>
-     </div>
-     </div>
-
-    <div class="col-md-10">
-    <div class="main-content" style="padding: 50px;">
-    <div class="aboutImage">
-        <img src="images/siteImages/about.png" class="aboutImageFile" alt="About Us" width=200 height=200>
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post" class="form-signin mt-5 mb-5" style="text-align: center">
+    <img class="mb-4" src="images/siteImages/admin.png" alt="" width="120" height="120">
+    <h1 class="h3 mb-3 font-weight-normal">Admin Login</h1>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" name="email" id="inputEmail" class="form-control" value="<?php if(isset($_SESSION["adminLogin"])) {echo $_SESSION["email"];} ?>" placeholder="Email address" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <div class="checkbox mb-3">
+        <label>
+        <input type="checkbox" value="remember-me"> Remember me
+        </label>
     </div>
-    <h5>
-        Hello Everyone
-         <br /><br />
-         THE ART WORLD ONLINE features the world’s leading galleries, museum collections, foundations, artist estates, art fairs, and benefit auctions, all in one place. Our growing database of 800,000 images of art, architecture, and design by 70,000 artists spans historical, modern, and contemporary works, and includes the largest online database of contemporary art. Art Gallery is used by art lovers, museum-goers, patrons, collectors, students, and educators to discover, learn about, and collect art.
-         <br /><br />
-         Thanks you
-    </h5>
-    </div>
-    </div>
-    </div>
-
+    <button class="btn btn-lg btn-dark btn-block" name="submit" type="submit">Sign in</button>
+    </form>
     <!-- Footer -->
     <?php require("includes/footer.php");?>

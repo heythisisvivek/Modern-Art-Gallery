@@ -72,13 +72,57 @@ session_start();
     </nav>
     </div>
 
-    <!-- Popular Image Container -->
+    <!-- Drawing Uploads Container -->
     <div class="container" style="padding: 20px">
-      <h4>Most Viewed:</h4>      
-      <hr />
+    <div class="row">
+    <div class="col-md-10">
+    <h4>Drawing:</h4>
+    </div>
+    <div class="col-md-2">
+    <label for=""><a href="http://localhost/Art%20Gallery/allart.php" >All Uploads</a></label>
+    </div>
+    </div>
+    <hr />
     <div class='row'>
     <?php
-      $selImage = "SELECT * FROM userimages ORDER BY imagevisit desc limit 4";
+      $selImage = "SELECT * FROM userimages WHERE imagecategory='Drawing' ORDER BY id desc limit 4";
+      $queryImage = mysqli_query($conn, $selImage);
+
+      if(mysqli_num_rows($queryImage) > 0) {
+        while($retrieve = mysqli_fetch_assoc($queryImage)) {
+            echo "
+            <div class='col-md-3'>
+              <div class='thumbnail'>
+                <a href='http://localhost/Art%20Gallery/art.php?img=".$retrieve['iid']."&imgname=".$retrieve['imagetitle']."'>
+                  <img src='".$retrieve['userImage']."' alt='Home Images' style='width:100%'>
+                  <div class='caption'>
+                    <p style='margin: 5px'>".$retrieve['imagetitle']."</p>
+                    <p>₹ ".$retrieve['imageprice']."</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+            ";
+        }
+      }
+    ?>
+    </div>
+    </div>    
+
+    <!-- Painting Uploads Container -->
+    <div class="container" style="padding: 20px">
+    <div class="row">
+    <div class="col-md-10">
+    <h4>Painting:</h4>
+    </div>
+    <div class="col-md-2">
+    <label for=""><a href="http://localhost/Art%20Gallery/allart.php" >All Uploads</a></label>
+    </div>
+    </div>
+    <hr />
+    <div class='row'>
+    <?php
+      $selImage = "SELECT * FROM userimages WHERE imagecategory='Painting' ORDER BY id desc limit 4";
       $queryImage = mysqli_query($conn, $selImage);
 
       if(mysqli_num_rows($queryImage) > 0) {
@@ -102,21 +146,20 @@ session_start();
     </div>
     </div>
 
-    <!-- Recent Uploads Container -->
+    <!-- Design Uploads Container -->
     <div class="container" style="padding: 20px">
     <div class="row">
-      <div class="col-md-10">
-      <h4>Recent Upload:</h4>
-      </div>
-      <div class="col-md-2">
-      <label for=""><a href="http://localhost/Art%20Gallery/allart.php" >All Uploads</a></label>
-      </div>
-      
+    <div class="col-md-10">
+    <h4>Design:</h4>
+    </div>
+    <div class="col-md-2">
+    <label for=""><a href="http://localhost/Art%20Gallery/allart.php" >All Uploads</a></label>
+    </div>
     </div>
     <hr />
     <div class='row'>
     <?php
-      $selImage = "SELECT * FROM userimages ORDER BY id desc limit 8";
+      $selImage = "SELECT * FROM userimages WHERE imagecategory='Design' ORDER BY id desc limit 4";
       $queryImage = mysqli_query($conn, $selImage);
 
       if(mysqli_num_rows($queryImage) > 0) {
